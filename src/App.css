@@ -1,0 +1,91 @@
+#root {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#small-box{
+  font-size: 20px;
+  height: auto;
+  width: 10rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#guess-box{
+  
+  display: flex;
+  justify-content: space-between;
+}
+
+#pokemon-card{
+  display: flex;
+  background-color: #42a147;
+  justify-content: center;
+  border-radius: 10px;
+  max-width: 40rem;
+  width: 15vw;
+  align-items: center;
+}
+
+#pokemon-img{
+  width: 7vw;
+  max-width: 7vw;
+  height: 20vh;
+  max-height: 20vh;
+}
+
+#pokemon-text{
+  color: white;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+#pokemon-text p{
+  line-height: 10px;
+}
+
+#pokemon-box{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
