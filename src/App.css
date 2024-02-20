@@ -6,16 +6,36 @@
   text-align: center;
 }
 
-#small-box{
+.input-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#input-box{
+  padding: 0.6rem;
+  height: 100%;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.small-box{
   font-size: 20px;
   height: auto;
-  width: 10rem;
+  width: 10vw;
+  max-width: 10vw;
   margin-top: 0;
   margin-bottom: 0;
+  border: black 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
 #guess-box{
-  
   display: flex;
   justify-content: space-between;
 }
@@ -25,8 +45,8 @@
   background-color: #42a147;
   justify-content: center;
   border-radius: 10px;
-  max-width: 40rem;
-  width: 15vw;
+  max-width: 20vw;
+  width: 18vw;
   align-items: center;
 }
 
@@ -35,6 +55,12 @@
   max-width: 7vw;
   height: 20vh;
   max-height: 20vh;
+}
+
+.blacked-sprite{
+  height: 50px;
+  width: auto;
+  filter: grayscale(100%) brightness(0%) contrast(1000%) blur(5px);
 }
 
 #pokemon-text{
