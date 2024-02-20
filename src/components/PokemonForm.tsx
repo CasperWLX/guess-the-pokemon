@@ -7,8 +7,8 @@ import PokemonCard from './PokemonCard';
 const PokemonForm = () => {
 
     const [inputValue, setInputValue] = useState('');
-    const [pokemon, setPokemon] = useState<pokemonInterface[] | null>(null);
-    const [correctPokemon, setCorrectPokemon] = useState<pokemonInterface[]>([])
+    const [pokemon, setPokemon] = useState<pokemonInterface | null>(null);
+    const [correctPokemon, setCorrectPokemon] = useState<pokemonInterface | null>(null)
     const [numberOfGuesses, setGuessCount] = useState(0);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ const PokemonForm = () => {
             console.log(pokemon);
             setGuessCount(numberOfGuesses + 1);
         } else {
-            setPokemon([])
+            setPokemon(null)
         }
 
         setInputValue('');
@@ -59,13 +59,13 @@ const PokemonForm = () => {
             </h1>
             <h2>Number of guesses: {numberOfGuesses}</h2>
             <form onSubmit={handleSubmit} className='input-container'>
-                <input type="text" value={inputValue} onChange={handleInputChange} id='input-box'/>
+                <input type="text" value={inputValue} onChange={handleInputChange} id='input-box' />
                 <button type='submit'>Make a guess</button>
             </form>
 
 
             <div id='pokemon-box'>
-                {pokemon && <PokemonCard correctPokemon={correctPokemon} guessedPokemon={pokemon} numberOfTries={numberOfGuesses} />}
+                {pokemon && correctPokemon && <PokemonCard correctPokemon={correctPokemon} guessedPokemon={pokemon} numberOfTries={numberOfGuesses} />}
             </div>
 
         </div>

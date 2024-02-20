@@ -11,8 +11,8 @@ const CorrectPokemonCard = ({ pokemon }: pokemonProps) => {
                 <div id="pokemon-text">
                     <p>ID: {pokemon.id}</p>
                     <p>Name: {pokemon.name}</p>
-                    <p>Weight: {pokemon.weight}</p>
-                    <p>Weight: {pokemon.height}</p>
+                    <p>Weight: {pokemon.weight / 10}kg</p>
+                    <p>Height: {pokemon.height * 10}cm</p>
                     {pokemon.types.length > 1 ? (
                         <p>
                             Types:{" "}

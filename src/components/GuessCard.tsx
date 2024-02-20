@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import downArrow from '../assets/down-arrow.svg'
-import upArrow from '../assets/up-arrow.svg'
+import { downArrow, upArrow } from '../constants';
 import { pokemonInterface } from './pokemonInterface';
 
 interface pokemonProps {
@@ -26,7 +25,7 @@ const GuessCard = ({ correctPokemon, guessedPokemon, numberOfTries }: pokemonPro
     const calculateDifferenceStyle = (difference: number): string => {
         if (difference > 0) return `url(${downArrow})`;
         if (difference < 0) return `url(${upArrow})`;
-        return '';
+        return 'undefined';
     };
 
     const heightDifference = guessedPokemon.height - correctPokemon.height;
@@ -36,16 +35,15 @@ const GuessCard = ({ correctPokemon, guessedPokemon, numberOfTries }: pokemonPro
     const weightBackground = calculateDifferenceStyle(weightDifference);
 
     const heightStyle: React.CSSProperties = {
-        backgroundImage: heightBackground ? heightBackground : 'none',
+        backgroundImage: heightBackground ? weightBackground : 'none',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: heightDifference === 0 ? 'green' : '#242424'
+        backgroundColor: heightDifference === 0 ? 'green' : '#242424',
     };
 
     const weightStyle: React.CSSProperties = {
         backgroundImage: weightBackground ? weightBackground : 'none',
         backgroundRepeat: 'no-repeat',
         backgroundColor: weightDifference === 0 ? 'green' : '#242424',
-        display: 'flex'
     };
 
     if (commonTypes.length < 1) {
@@ -74,14 +72,27 @@ const GuessCard = ({ correctPokemon, guessedPokemon, numberOfTries }: pokemonPro
 
 
     return (
-        <div id='guess-box'>
-            <p className='small-box'>{guessedPokemon.name}</p>
-            <p style={heightStyle} className='small-box'>{guessedPokemon.height * 10}cm</p>
-            <p style={weightStyle} className='small-box'>{guessedPokemon.weight / 10}kg</p>
-            {commonTypes.length > 0 ? commonTypes.map((type) => <p key={type} className='small-box' style={typeStyle}>{type}</p>)
-                : guessedPokemon.types.map((type) => <p key={type.type.name} className='small-box' style={typeStyle}>{type.type.name}</p>)}
-            <img src={correctPokemon.sprites.front_default} alt={correctPokemon.sprites.front_default} className='small-box' style={spriteStyle} />
-        </div>
+        <>
+            <div id='guess-box'>
+                <p className='small-box'>{guessedPokemon.name}</p>
+                <div className='small-box'>
+                    <p >{guessedPokemon.height * 10}cm</p>
+                    <p style={heightStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                </div>
+                <div className='small-box'>
+                    <p>{guessedPokemon.weight / 10}kg</p>
+                    <p style={weightStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                </div>
+                {commonTypes.length > 0 ? commonTypes.map((type) => <p key={type} className='small-box' style={typeStyle}>{type}</p>)
+                    : guessedPokemon.types.map((type) => <p key={type.type.name} className='small-box' style={typeStyle}>{type.type.name}</p>)}
+            </div>
+            <div id='blurry-image-box'>
+                <p>WHO'S THAT POKEMON?</p>
+                <div className='image-box'>
+                    <img src={correctPokemon.sprites.front_default} alt={correctPokemon.sprites.front_default} style={spriteStyle} />
+                </div>
+            </div>
+        </>
     )
 }
 
