@@ -55,7 +55,7 @@ const PokemonForm = () => {
         <div>
 
             <h1>
-                Guess the pokemon!
+               WHO'S THAT POKEMON?
             </h1>
             <h2>Number of guesses: {numberOfGuesses}</h2>
             <form onSubmit={handleSubmit} className='input-container'>

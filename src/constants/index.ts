@@ -4,4 +4,4 @@ import downArrow from '../assets/down-arrow.svg';
 export {
     upArrow,
     downArrow,
-}
+};

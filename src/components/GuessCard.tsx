@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { downArrow, upArrow } from '../constants';
+
 import { pokemonInterface } from './pokemonInterface';
 
 interface pokemonProps {
@@ -12,49 +13,30 @@ const GuessCard = ({ correctPokemon, guessedPokemon, numberOfTries }: pokemonPro
 
     const correctPokemonTypes = correctPokemon.types.map((type) => type.type.name)
 
-    const guessedPokemonTypes = guessedPokemon.types.map((type) => type.type.name);
-
-    const commonTypes = correctPokemonTypes.filter(type => guessedPokemonTypes.includes(type))
+    const guessedPokemonTypes: string[] = guessedPokemon.types.map((type) => type.type.name);
 
     const [blurAmount, setBlurAmount] = useState(5);
 
-    let typeStyle: React.CSSProperties = {
-        backgroundColor: ''
+    const isCorrectType = (type: string) => correctPokemonTypes.includes(type);
+
+    if (correctPokemonTypes.length == 1) {
+        correctPokemonTypes.push('none')
+    }
+    if (guessedPokemonTypes.length == 1) {
+        guessedPokemonTypes.push('none')
+    }
+
+    const getTypeStyle = (type: string) => {
+        return {
+            backgroundColor: isCorrectType(type) ? 'green' : 'red'
+        };
     };
 
-    const calculateDifferenceStyle = (difference: number): string => {
-        if (difference > 0) return `url(${downArrow})`;
-        if (difference < 0) return `url(${upArrow})`;
-        return 'undefined';
-    };
+    const typeStyle1 = getTypeStyle(guessedPokemonTypes[0])
+    const typeStyle2 = getTypeStyle(guessedPokemonTypes[1]);
 
     const heightDifference = guessedPokemon.height - correctPokemon.height;
     const weightDifference = guessedPokemon.weight - correctPokemon.weight;
-
-    const heightBackground = calculateDifferenceStyle(heightDifference);
-    const weightBackground = calculateDifferenceStyle(weightDifference);
-
-    const heightStyle: React.CSSProperties = {
-        backgroundImage: heightBackground ? weightBackground : 'none',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: heightDifference === 0 ? 'green' : '#242424',
-    };
-
-    const weightStyle: React.CSSProperties = {
-        backgroundImage: weightBackground ? weightBackground : 'none',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: weightDifference === 0 ? 'green' : '#242424',
-    };
-
-    if (commonTypes.length < 1) {
-        typeStyle = {
-            backgroundColor: 'red'
-        }
-    } else {
-        typeStyle = {
-            backgroundColor: 'green'
-        }
-    }
 
     const spriteStyle: React.CSSProperties = {
         height: '50px',
@@ -73,21 +55,30 @@ const GuessCard = ({ correctPokemon, guessedPokemon, numberOfTries }: pokemonPro
 
     return (
         <>
+            <div>
+                <p>These arrows will indicate whether the mysterious pokemon is lighter <img src={downArrow} alt="Down-arrow" /> or heavier <img src={upArrow} alt="Up-arrow" /></p>
+            </div>
             <div id='guess-box'>
-                <p className='small-box'>{guessedPokemon.name}</p>
                 <div className='small-box'>
-                    <p >{guessedPokemon.height * 10}cm</p>
-                    <p style={heightStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <img src={guessedPokemon.sprites.front_default} alt="" />
                 </div>
                 <div className='small-box'>
-                    <p>{guessedPokemon.weight / 10}kg</p>
-                    <p style={weightStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <h2>{guessedPokemon.height * 10}cm</h2>
+                    {heightDifference > 0 ? <img src={downArrow} alt='down arrow' /> : <img src={upArrow} alt='up arrow' />}
                 </div>
-                {commonTypes.length > 0 ? commonTypes.map((type) => <p key={type} className='small-box' style={typeStyle}>{type}</p>)
-                    : guessedPokemon.types.map((type) => <p key={type.type.name} className='small-box' style={typeStyle}>{type.type.name}</p>)}
+                <div className='small-box'>
+                    <h2>{guessedPokemon.weight / 10}kg</h2>
+                    {weightDifference > 0 ? <img src={downArrow} alt='down arrow' /> : <img src={upArrow} alt='up arrow' />}
+                </div>
+                <div className='small-box' style={typeStyle1}>
+                    <h2>{guessedPokemonTypes[0].toUpperCase()}</h2>
+                </div>
+                <div className='small-box' style={typeStyle2}>
+                    {guessedPokemonTypes.length > 1 ? <h2>{guessedPokemonTypes[1].toUpperCase()}</h2> : <h2>NONE</h2>}
+                </div>
             </div>
             <div id='blurry-image-box'>
-                <p>WHO'S THAT POKEMON?</p>
+                <h2>?????</h2>
                 <div className='image-box'>
                     <img src={correctPokemon.sprites.front_default} alt={correctPokemon.sprites.front_default} style={spriteStyle} />
                 </div>
